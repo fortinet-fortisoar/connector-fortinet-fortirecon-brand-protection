@@ -1,1711 +1,1569 @@
 {
-  "name": "fortinet-fortirecon-brand-protection",
-  "label": "Fortinet FortiRecon Brand Protection",
-  "version": "2.1.1",
-  "description": "FortiRecon is a Digital Risk Protection Service (DRPS) product that provides an outside-the-network view to the risks posed to your enterprise.",
-  "publisher": "Fortinet",
-  "contributor": "Ramkrushna Pathade",
-  "cs_approved": true,
-  "cs_compatible": true,
-  "category": "Attack Surface Management",
-  "icon_small_name": "small_icon.png",
-  "icon_large_name": "large_icon.png",
-  "help_online": "https://docs.fortinet.com/document/fortisoar/2.1.0/fortinet-fortirecon-brand-protection/1018/fortinet-fortirecon-brand-protection-v2-1-0",
-  "configuration": {
-    "fields": [
-      {
-        "name": "server_url",
-        "title": "Server URL",
-        "type": "text",
-        "editable": true,
-        "visible": true,
-        "required": true,
-        "value": "https://api.fortirecon.forticloud.com",
-        "description": "Server name or IP address to which you will connect and perform the automated operations"
-      },
-      {
-        "name": "api_key",
-        "title": "API Key",
-        "type": "password",
-        "editable": true,
-        "visible": true,
-        "required": true,
-        "value": "",
-        "description": "API key to access the endpoint to which you will connect and perform the automated operations"
-      },
-      {
-        "name": "org_id",
-        "title": "Organization ID",
-        "type": "text",
-        "editable": true,
-        "visible": true,
-        "required": true,
-        "description": "The organization ID on which FortiRecon operations are to be performed."
-      },
-      {
-        "name": "verify_ssl",
-        "title": "Verify SSL",
-        "type": "checkbox",
-        "editable": true,
-        "visible": true,
-        "required": true,
-        "value": true,
-        "description": "Specifies whether the SSL certificate for the server is to be verified or not. By default, this option is set to True."
-      }
-    ]
-  },
-  "operations": [
-    {
-      "operation": "get_code_repo_exposures",
-      "title": "Get Code Repo Exposures",
-      "annotation": "get_code_repo_exposures",
-      "description": "Retrieves a list of code repo exposures based on the filter criteria that you have specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "q",
-          "title": "Search By Keyword",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a keyword to search in code repositories and retrieve results containing the specified keyword.",
-          "description": "(Optional) Specify a keyword to search in code repositories and retrieve results containing the specified keyword."
-        },
-        {
-          "name": "matched_domain",
-          "title": "Matched Domain",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a domain to search in code repositories and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve code repo exposures containing the specified domains. For example: domain1.com,domain2.com.",
-          "description": "(Optional) Specify a domain to search in code repositories and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve code repo exposures containing the specified domains. For example: domain1.com,domain2.com.",
-          "placeholder": "eg: domain1.com,domain2.com"
-        },
-        {
-          "name": "risk_level",
-          "title": "Risk Level",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a risk level to search in code repositories and retrieve results containing the specified risk level. You can specify multiple comma-separated risk levels to retrieve code repositories containing the specified risk levels. For example: LOW,MEDIUM,HIGH.",
-          "description": "(Optional) Specify a risk level to search in code repositories and retrieve results containing the specified risk level. You can specify multiple comma-separated risk levels to retrieve code repositories containing the specified risk levels. For example: LOW,MEDIUM,HIGH.",
-          "placeholder": "eg: LOW,MEDIUM,HIGH"
-        },
-        {
-          "name": "attribute_type",
-          "title": "Attribute Type",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify an attribute type to search in code repositories and retrieve results containing the specified attribute type. You can specify multiple comma-separated attribute types to retrieve code repositories containing the specified attribute types. For example: Email,Password.",
-          "description": "(Optional) Specify an attribute type to search in code repositories and retrieve results containing the specified attribute type. You can specify multiple comma-separated attribute types to retrieve code repositories containing the specified attribute types. For example: Email,Password.",
-          "placeholder": "eg: Email,Password"
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "select",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select a status to search in code repositories and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
-          "description": "(Optional) Select a status to search in code repositories and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
-          "options": [
-            "Active",
-            "Ignored",
-            "Resolved"
-          ]
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected.",
-          "description": "(Optional) Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date.",
-          "description": "(Optional) Select the end date of the range containing the date when a profile was added. Default is the current date."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "added_ts": "",
-            "attribute": "",
-            "attribute_type": "",
-            "id": "",
-            "matched_domain": "",
-            "raw_info": "",
-            "risk_level": "",
-            "status": "",
-            "url": "",
-            "repo_id": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "get_code_repos",
-      "title": "Get Code Repositories",
-      "annotation": "get_code_repos",
-      "description": "Retrieves a list of code repositories based on the searched keyword, domain, risk level, and other filter criteria that you have specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "q",
-          "title": "Search By Keyword",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a keyword to search in code repositories and retrieve results containing the specified keyword.",
-          "description": "(Optional) Specify a keyword to search in code repositories and retrieve results containing the specified keyword."
-        },
-        {
-          "name": "matched_domain",
-          "title": "Matched Domain",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a domain to search in code repositories and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve code repo exposures containing the specified domains. For example: domain1.com,domain2.com.",
-          "description": "(Optional) Specify a domain to search in code repositories and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve code repo exposures containing the specified domains. For example: domain1.com,domain2.com.",
-          "placeholder": "eg: domain1.com,domain2.com"
-        },
-        {
-          "name": "risk_level",
-          "title": "Risk Level",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a risk level to search in code repositories and retrieve results containing the specified risk level. You can specify multiple comma-separated risk levels to retrieve code repositories containing the specified risk levels. For example: LOW,MEDIUM,HIGH.",
-          "description": "(Optional) Specify a risk level to search in code repositories and retrieve results containing the specified risk level. You can specify multiple comma-separated risk levels to retrieve code repositories containing the specified risk levels. For example: LOW,MEDIUM,HIGH.",
-          "placeholder": "eg: LOW,MEDIUM,HIGH"
-        },
-        {
-          "name": "attribute_type",
-          "title": "Attribute Type",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify an attribute type to search in code repositories and retrieve results containing the specified attribute type. You can specify multiple comma-separated attribute types to retrieve code repositories containing the specified attribute types. For example: Email,Password.",
-          "description": "(Optional) Specify an attribute type to search in code repositories and retrieve results containing the specified attribute type. You can specify multiple comma-separated attribute types to retrieve code repositories containing the specified attribute types. For example: Email,Password.",
-          "placeholder": "eg: Email,Password"
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "select",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select a status to search in code repositories and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
-          "description": "(Optional) Select a status to search in code repositories and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
-          "options": [
-            "Active",
-            "Ignored",
-            "Resolved"
-          ]
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected.",
-          "description": "(Optional) Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date.",
-          "description": "(Optional) Select the end date of the range containing the date when a profile was added. Default is the current date."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "id": "",
-            "repo_url": "",
-            "files_count": "",
-            "risk_level": "",
-            "attribute": "",
-            "matched_domain": "",
-            "attribute_type": "",
-            "added_ts": "",
-            "status": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "get_code_repos_stats",
-      "title": "Get Code Repos Statistics",
-      "annotation": "get_code_repos_stats",
-      "description": "Retrieves statistics for all code repositories associated with the Organization ID specified in configuration parameters.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [],
-      "output_schema": {
-        "count_by_action": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_attribute_type": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            },
-            {
-              "count": "",
-              "id": ""
-            },
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_risk_level": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            },
-            {
-              "count": "",
-              "id": ""
-            },
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        }
-      }
-    },
-    {
-      "operation": "get_code_repo_matched_domains_stats",
-      "title": "Get Code Repo Matched Domains Statistics",
-      "annotation": "get_code_repo_matched_domains_stats",
-      "description": "Retrieves statistics of all matched domains associated with the Organization ID specified in configuration parameters.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [],
-      "output_schema": {
-        "count_by_matched_domain": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        }
-      }
-    },
-    {
-      "operation": "get_domain_threats",
-      "title": "Get Domain Threats",
-      "annotation": "get_domain_threats",
-      "description": "Retrieves list of code domain threats based on the filter criteria that you have specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "q",
-          "title": "Search By Keyword",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a keyword to search in domain threats and retrieve results containing the specified keyword. The keyword is searched in domain, URL, severity, original domain, online status, and fuzzer fields.",
-          "description": "(Optional) Specify a keyword to search in domain threats and retrieve results containing the specified keyword. The keyword is searched in domain, URL, severity, original domain, online status, and fuzzer fields."
-        },
-        {
-          "name": "original_domain",
-          "title": "Original Domain",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a domain to search in domain threats and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve domain threats containing the specified domains. For example: domain1.com,domain2.com.",
-          "description": "(Optional) Specify a domain to search in domain threats and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve domain threats containing the specified domains. For example: domain1.com,domain2.com.",
-          "placeholder": "eg: domain1.com,domain2.com"
-        },
-        {
-          "name": "tags",
-          "title": "Tags",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a tag to search in domain threats and retrieve results containing the specified tags. You can specify multiple tags to retrieve domain threats containing the specified tags. For example: b7c4409f4e34eedc7a5447b077732c66,b7c4409f4e34eedc7a5447b077732c77. NOTE: Tag ID can be retrieved from the Get Tags action.",
-          "description": "(Optional) Specify a tag to search in domain threats and retrieve results containing the specified tags. You can specify multiple tags to retrieve domain threats containing the specified tags. For example: b7c4409f4e34eedc7a5447b077732c66,b7c4409f4e34eedc7a5447b077732c77. NOTE: Tag ID can be retrieved from the Get Tags action.",
-          "placeholder": "eg: b7c4409f4e34eedc7a5447b077732c66,b7c4409f4e34eedc7a5447b077732c77"
-        },
-        {
-          "name": "online_status",
-          "title": "Online Status",
-          "type": "select",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select an online status search in domain threats and retrieve results containing the specified online status. You can select one of the following options: Online Not Available Non Functional Offline",
-          "description": "(Optional) Select an online status search in domain threats and retrieve results containing the specified online status. You can select one of the following options: Online Not Available Non Functional Offline",
-          "options": [
-            "Online",
-            "Not Available",
-            "Non Functional",
-            "Offline"
-          ]
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "select",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select a status to search in domain threats and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
-          "description": "(Optional) Select a status to search in domain threats and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
-          "options": [
-            "Active",
-            "Ignored",
-            "Resolved"
-          ]
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected.",
-          "description": "(Optional) Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date.",
-          "description": "(Optional) Select the end date of the range containing the date when a profile was added. Default is the current date."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "added_ts": "",
-            "domain": "",
-            "expiration_date": "",
-            "fuzzer": "",
-            "id": "",
-            "is_false_positive": "",
-            "is_impersonation": "",
-            "is_parked": "",
-            "online_status": "",
-            "original_domain": "",
-            "registration_date": "",
-            "severity": "",
-            "source": "",
-            "source_name": "",
-            "status": "",
-            "tags": []
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "get_domain_threats_by_id",
-      "title": "Get Domain Threats By ID",
-      "annotation": "get_domain_threats_by_id",
-      "description": "Retrieves details of threats on a domain based on the threat ID that you have specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "id",
-          "title": "Domain Threat ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify an ID of the domain threat to retrieve its details.",
-          "description": "Specify an ID of the domain threat to retrieve its details."
-        }
-      ],
-      "output_schema": {
-        "added_ts": "",
-        "domain": "",
-        "id": "",
-        "notable_change_ts": "",
-        "ticket_id": "",
-        "is_false_positive": "",
-        "is_impersonation": "",
-        "is_parked": "",
-        "online_status": "",
-        "original_domain": "",
-        "severity": "",
-        "source": "",
-        "source_name": "",
-        "status": "",
-        "tags": [
-          {
-            "id": "",
-            "name": ""
-          }
-        ]
-      }
-    },
-    {
-      "operation": "get_executive_exposures",
-      "title": "Get Executive Exposures",
-      "annotation": "get_executive_exposures",
-      "description": "Retrieves list of executive exposures based on the filter criteria that you have specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "source_type",
-          "title": "Source Type",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a source type in which to search and retrieve results containing the specified Executive ID.",
-          "description": "(Optional) Specify a source type in which to search and retrieve results containing the specified Executive ID."
-        },
-        {
-          "name": "executive_id",
-          "title": "Executive ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify an executive ID to search and retrieve results containing the specified executive ID.",
-          "description": "(Optional) Specify an executive ID to search and retrieve results containing the specified executive ID."
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the start date of the range containing the date when a report was added. Selecting a start date is mandatory if an End Date is selected.",
-          "description": "(Optional) Select the start date of the range containing the date when a report was added. Selecting a start date is mandatory if an End Date is selected."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the end date of the range containing the date when a report was added. Default is the current date.",
-          "description": "(Optional) Select the end date of the range containing the date when a report was added. Default is the current date."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "added_ts": "",
-            "data": {},
-            "executive_id": "",
-            "id": "",
-            "matched_keywords": [
-              {
-                "type": "",
-                "value": ""
-              }
-            ],
-            "source_type": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "get_executive_profiles",
-      "title": "Get Executive Profiles",
-      "annotation": "get_executive_profiles",
-      "description": "Retrieves list of executive profiles based on the name of the executive, page number, and page size that you have specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "name",
-          "title": "Executive Name",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify an executive name to search and retrieve results containing the specified executive's name.",
-          "description": "(Optional) Specify an executive name to search and retrieve results containing the specified executive's name."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "id": "",
-            "name": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "get_open_bucket_exposures",
-      "title": "Get Open Bucket Exposures",
-      "annotation": "get_open_bucket_exposures",
-      "description": "Retrieves list of open bucket exposures based on the filter criteria that you have specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "q",
-          "title": "Search By Keyword",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a keyword to search in open bucket exposures and retrieve results containing the specified keyword.",
-          "description": "(Optional) Specify a keyword to search in open bucket exposures and retrieve results containing the specified keyword."
-        },
-        {
-          "name": "file_type",
-          "title": "File Type",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a file type to search in open bucket exposures and retrieve results containing the specified file types. You can specify multiple comma-separated file types to retrieve open bucket exposures containing the specified file types. For example gz,tgz,docx.",
-          "description": "(Optional) Specify a file type to search in open bucket exposures and retrieve results containing the specified file types. You can specify multiple comma-separated file types to retrieve open bucket exposures containing the specified file types. For example gz,tgz,docx.",
-          "placeholder": "eg: gz,docx"
-        },
-        {
-          "name": "bucket_type",
-          "title": "Bucket Type",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a bucket type to search in open bucket exposures and retrieve results containing the specified bucket types. You can specify multiple comma-separated bucket types to retrieve open bucket exposures containing the specified bucket types. For example gcp,aws,azure.",
-          "description": "(Optional) Specify a bucket type to search in open bucket exposures and retrieve results containing the specified bucket types. You can specify multiple comma-separated bucket types to retrieve open bucket exposures containing the specified bucket types. For example gcp,aws,azure.",
-          "placeholder": "eg: gcp,aws,azure"
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "select",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select a status to search in open bucket exposures and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
-          "description": "(Optional) Select a status to search in open bucket exposures and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
-          "options": [
-            "Active",
-            "Ignored",
-            "Resolved"
-          ]
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected.",
-          "description": "(Optional) Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date.",
-          "description": "(Optional) Select the end date of the range containing the date when a profile was added. Default is the current date."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "accessibility_status": "",
-            "added_ts": "",
-            "bucket": "",
-            "bucket_id": "",
-            "bucket_type": "",
-            "file_name": "",
-            "file_size": "",
-            "file_type": "",
-            "full_path": "",
-            "id": "",
-            "source_id": "",
-            "status": "",
-            "url": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "get_rogue_apps",
-      "title": "Get Rogue Apps",
-      "annotation": "get_rogue_apps",
-      "description": "Retrieves a list of Rogue Apps based on the status and keywords that you have specified for the query; rogue apps are mobile applications trying to look like apps from trusted brands.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "multiselect",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "description": "(Optional) Select the rogue apps status type from the following options to filter the results: Unofficial: These are the apps that are not necessarily rouge but mention your organization's brand Official: These are the apps that are officially published by your organization Rogue: These are the apps that are deemed to be impersonating your organization Takedown: These are the rouge apps that are currently undergoing takedown by FortiRecon False Positive: These are the apps that were classified as either rouge or unofficial but are now deemed to be false positives by your organization's analysts Resolved: These are the rouge apps that have been taken down.",
-          "tooltip": "Select the rogue apps status type from the following options to filter the results: Unofficial: These are the apps that are not necessarily rouge but mention your organization's brand Official: These are the apps that are officially published by your organization Rogue: These are the apps that are deemed to be impersonating your organization Takedown: These are the rouge apps that are currently undergoing takedown by FortiRecon False Positive: These are the apps that were classified as either rouge or unofficial but are now deemed to be false positives by your organization's analysts Resolved: These are the rouge apps that have been taken down.",
-          "options": [
-            "UNOFFICIAL",
-            "OFFICIAL",
-            "ROGUE",
-            "TAKEDOWN",
-            "FALSE_POSITIVE",
-            "RESOLVED"
-          ]
-        },
-        {
-          "name": "q",
-          "title": "Search By Keyword",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the keywords to filter the results. Specified keyword is searched in these fields: Keyword, Source Name, Developer Name, App Name.",
-          "description": "(Optional) Specify the keywords to filter the results. Specified keyword is searched in these fields: Keyword, Source Name, Developer Name, App Name."
-        },
-        {
-          "name": "appstore",
-          "title": "App Store Name",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify an app store in which to search for rogue apps and retrieve results. You can specify multiple comma-separated file types to retrieve rogue apps containing the specified file types. For example: Androidapk,Applestore.",
-          "description": "(Optional) Specify an app store in which to search for rogue apps and retrieve results. You can specify multiple comma-separated file types to retrieve rogue apps containing the specified file types. For example: Androidapk,Applestore.",
-          "placeholder": "eg: gz,docx"
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the start date of the range containing the date when the rogue app was first seen. Selecting a start date is mandatory if an End Date is selected.",
-          "description": "(Optional) Select the start date of the range containing the date when the rogue app was first seen. Selecting a start date is mandatory if an End Date is selected."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the end date of the range containing the date when a rogue app was first seen. Default is the current date.",
-          "description": "(Optional) Select the end date of the range containing the date when a rogue app was first seen. Default is the current date."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "added_ts": "",
-            "app_name": "",
-            "app_size": "",
-            "appstore": "",
-            "description": "",
-            "developer_name": "",
-            "download_count": "",
-            "download_url": "",
-            "first_seen": "",
-            "id": "",
-            "keyword": "",
-            "package_name": "",
-            "status": "",
-            "ticket_id": "",
-            "updated_ts": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "get_rogue_app_by_id",
-      "title": "Get Rogue App By ID",
-      "annotation": "get_rogue_app_by_id",
-      "description": "Retrieves details of a rogue app based on the Rogue App ID that you have specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "id",
-          "title": "Rogue App ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Specify the ID of the rogue app to get its details.",
-          "description": "Specify the ID of the rogue app to get its details."
-        }
-      ],
-      "output_schema": {
-        "app_name": "",
-        "app_size": "",
-        "appstore": "",
-        "description": "",
-        "developer_name": "",
-        "developer_url": "",
-        "download_count": "",
-        "download_url": "",
-        "first_seen": "",
-        "id": "",
-        "is_whitelisted": "",
-        "keyword": "",
-        "last_seen": "",
-        "listing_url": "",
-        "package_name": "",
-        "review_count": "",
-        "review_stars": "",
-        "screenshot_url": "",
-        "status": "",
-        "ticket_id": "",
-        "updated_ts": ""
-      }
-    },
-    {
-      "operation": "get_social_media_threats",
-      "title": "Get Social Media Threats",
-      "annotation": "get_social_media_threats",
-      "description": "Retrieves list of social media threats based on the filter criteria that you have specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "q",
-          "title": "Search By Keyword",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a keyword to search in social media threats and retrieve results containing the specified keyword in profile name or handle name fields.",
-          "description": "(Optional) Specify a keyword to search in social media threats and retrieve results containing the specified keyword in profile name or handle name fields."
-        },
-        {
-          "name": "media_type",
-          "title": "Media Type",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a social media platform to search in social media threats and retrieve results containing the specified social media platforms. You can specify multiple comma-separated social media platforms to retrieve social media threats containing the specified social media platforms. For example FACEBOOK,INSTAGRAM,TWITTER.",
-          "description": "(Optional) Specify a social media platform to search in social media threats and retrieve results containing the specified social media platforms. You can specify multiple comma-separated social media platforms to retrieve social media threats containing the specified social media platforms. For example FACEBOOK,INSTAGRAM,TWITTER.",
-          "placeholder": "eg: FACEBOOK,INSTAGRAM,TWITTER"
-        },
-        {
-          "name": "profile_name",
-          "title": "Profile Name",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a profile name to search and retrieve social media threats containing the specified profile name.",
-          "description": "(Optional) Specify a profile name to search and retrieve social media threats containing the specified profile name."
-        },
-        {
-          "name": "handle_name",
-          "title": "Handle Name",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a handle name to search and retrieve social media threats containing the specified handle name.",
-          "description": "(Optional) Specify a handle name to search and retrieve social media threats containing the specified handle name."
-        },
-        {
-          "name": "is_verified",
-          "title": "Is Verified",
-          "type": "select",
-          "options": [
-            "True",
-            "False"
-          ],
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select whether the profile or the handle name is verified to retrieve social media threats containing only verified profile or handle name. You can select one of the following options: True False",
-          "description": "(Optional) Select whether the profile or the handle name is verified to retrieve social media threats containing only verified profile or handle name. You can select one of the following options: True False"
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "select",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select a status to search in social media threats and retrieve results containing the specified status. You can select from the following options: Active False Positive Takedown Resolved",
-          "description": "(Optional) Select a status to search in social media threats and retrieve results containing the specified status. You can select from the following options: Active False Positive Takedown Resolved",
-          "options": [
-            "Active",
-            "False Positive",
-            "Takedown",
-            "Resolved"
-          ]
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected.",
-          "description": "(Optional) Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date.",
-          "description": "(Optional) Select the end date of the range containing the date when a profile was added. Default is the current date."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "added_ts": "",
-            "followers_count": "",
-            "friends_count": "",
-            "handle_name": "",
-            "id": "",
-            "is_verified": "",
-            "location": "",
-            "media_type": "",
-            "posts_count": "",
-            "profile_creation_ts": "",
-            "profile_name": "",
-            "profile_url": "",
-            "source_id": "",
-            "status": "",
-            "ticket_id": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "get_domain_threats_stats",
-      "title": "Get Domain Threats Statistics",
-      "annotation": "get_domain_threats_stats",
-      "description": "Retrieves statistics for domain threats.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [],
-      "output_schema": {
-        "count_by_action": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_domain_status": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_tags": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        }
-      }
-    },
-    {
-      "operation": "get_original_domains_stats",
-      "title": "Get Original Domains Statistics",
-      "annotation": "get_original_domains_stats",
-      "description": "Retrieves the statistics of original domains threats based on the page number and the page size specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [],
-      "output_schema": {
-        "count_by_original_domain": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        }
-      }
-    },
-    {
-      "operation": "get_open_bucket_exposures_stats",
-      "title": "Get Open Bucket Exposures Statistics",
-      "annotation": "get_open_bucket_exposures_stats",
-      "description": "Retrieves the statistics of open bucket exposures.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [],
-      "output_schema": {
-        "count_by_accessibility_status": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_bucket_type": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_file_type": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_status": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        }
-      }
-    },
-    {
-      "operation": "get_social_media_threats_stats",
-      "title": "Get Social Media Threats Statistics",
-      "annotation": "get_social_media_threats_stats",
-      "description": "Retrieves the statistics of social media threats.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [],
-      "output_schema": {
-        "count_by_is_verified": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_media_type": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        },
-        "count_by_status": {
-          "aggregations": [
-            {
-              "count": "",
-              "id": ""
-            }
-          ],
-          "total": ""
-        }
-      }
-    },
-    {
-      "operation": "get_tags",
-      "title": "Get Tags",
-      "annotation": "get_tags",
-      "description": "Retrieves the list of active tags.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [],
-      "output_schema": {
-        "hits": [
-          {
-            "id": "",
-            "name": ""
-          }
-        ]
-      }
-    },
-    {
-      "operation": "get_takedown_requests",
-      "title": "Get Takedown Requests",
-      "annotation": "get_takedown_requests",
-      "description": "Retrieves a list of takedown requests for rogue apps and typo domains for the given organization the filter criteria that you have specified.",
-      "category": "investigation",
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "q",
-          "title": "Search By Keyword",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify a keyword to search in take-down requests and retrieve results containing the specified keyword in ticket Id or entity fields. The entity field may contain domain name, title of a report, or Phished Domain.",
-          "description": "(Optional) Specify a keyword to search in take-down requests and retrieve results containing the specified keyword in ticket Id or entity fields. The entity field may contain domain name, title of a report, or Phished Domain."
-        },
-        {
-          "name": "status",
-          "title": "Status",
-          "type": "multiselect",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select a status to search in take-down requests and retrieve results containing the specified status. You can select from the following options: Requested Acknowledged Rejected Approved Initiated Successfully Closed Unsuccessfully Closed",
-          "description": "(Optional) Select a status to search in take-down requests and retrieve results containing the specified status. You can select from the following options: Requested Acknowledged Rejected Approved Initiated Successfully Closed Unsuccessfully Closed",
-          "options": [
-            "REQUESTED",
-            "ACKNOWLEDGED",
-            "REJECTED",
-            "APPROVED",
-            "INITIATED",
-            "SUCCESSFULLY_CLOSED",
-            "UNSUCCESSFULLY_CLOSED"
-          ]
-        },
-        {
-          "name": "category",
-          "title": "Category",
-          "type": "multiselect",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select a category to search in take-down requests and retrieve results containing the specified category. you can select from the following options: DomainThreat RogueApps SocialMediaThreat",
-          "description": "(Optional) Select a category to search in take-down requests and retrieve results containing the specified category. you can select from the following options: DomainThreat RogueApps SocialMediaThreat",
-          "options": [
-            "DomainThreat",
-            "RogueApps",
-            "SocialMediaThreat"
-          ]
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the start date of the range containing the date when the takedown was requested. Selecting a start date is mandatory if an End Date is selected.",
-          "description": "(Optional) Select the start date of the range containing the date when the takedown was requested. Selecting a start date is mandatory if an End Date is selected."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Select the end date of the range containing the date when the takedown was requested. Default is the current date.",
-          "description": "(Optional) Select the end date of the range containing the date when the takedown was requested. Default is the current date."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "(Optional) Specify the page number from which to retrieve the results. Default value is 1."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-          "description": "(Optional) Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "added_ts": "",
-            "category": "",
-            "entity": "",
-            "id": "",
-            "resource_id": "",
-            "status": "",
-            "ticket_id": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
-      "operation": "update_code_repo_status",
-      "title": "Update Code Repo Status",
-      "annotation": "update_code_repo_status",
-      "description": "Updates the status of the Code Repo based on the code repo ID and the status to update.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "message": ""
-      },
-      "parameters": [
-        {
-          "name": "repo_id",
-          "title": "Code Repo ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "description": "Specify the ID of the code repo whose status to update on Fortinet FortiRecon Brand Protection.",
-          "tooltip": "Specify the ID of the code repo whose status to update on Fortinet FortiRecon Brand Protection."
-        },
-        {
-          "title": "Status",
-          "name": "status",
-          "type": "select",
-          "visible": true,
-          "editable": true,
-          "required": true,
-          "tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved Ignored",
-          "description": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved Ignored",
-          "options": [
-            "ACTIVE",
-            "RESOLVED",
-            "IGNORED"
-          ]
-        }
-      ]
-    },
-    {
-      "operation": "update_domain_threat_status",
-      "title": "Update Domain Threat Status",
-      "annotation": "update_domain_threat_status",
-      "description": "Updates the status of the Domain Threat record based on the Domain Threat ID and the status to update.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "message": ""
-      },
-      "parameters": [
-        {
-          "name": "domain_threat_id",
-          "title": "Domain Threat ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "description": "Specify the threat ID of the domain whose status to update on Fortinet FortiRecon Brand Protection.",
-          "tooltip": "Specify the threat ID of the domain whose status to update on Fortinet FortiRecon Brand Protection."
-        },
-        {
-          "title": "Status",
-          "name": "status",
-          "type": "select",
-          "visible": true,
-          "editable": true,
-          "required": true,
-          "tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved False Positive Takedown Safelist",
-          "description": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved False Positive Takedown Safelist",
-          "options": [
-            "ACTIVE",
-            "RESOLVED",
-            "FALSE_POSITIVE",
-            "TAKEDOWN",
-            "SAFELIST"
-          ]
-        }
-      ]
-    },
-    {
-      "operation": "update_open_bucket_exposure_status",
-      "title": "Update Open Bucket Exposure Status",
-      "annotation": "update_open_bucket_exposure_status",
-      "description": "Updates the status of the Open Bucket Exposure record based on the Open Bucket Exposure ID and the status to update.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "message": ""
-      },
-      "parameters": [
-        {
-          "name": "open_bucket_exposure_id",
-          "title": "Open Bucket Exposure ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "description": "Specify the exposure ID of the open bucket whose status to update on Fortinet FortiRecon Brand Protection.",
-          "tooltip": "Specify the exposure ID of the open bucket whose status to update on Fortinet FortiRecon Brand Protection."
-        },
-        {
-          "title": "Status",
-          "name": "status",
-          "type": "select",
-          "visible": true,
-          "editable": true,
-          "required": true,
-          "tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved Ignored",
-          "description": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved Ignored",
-          "options": [
-            "ACTIVE",
-            "RESOLVED",
-            "IGNORED"
-          ]
-        }
-      ]
-    },
-    {
-      "operation": "update_rogue_app_exposure_status",
-      "title": "Update Rogue App Status",
-      "annotation": "update_rogue_app_exposure_status",
-      "description": "Updates the status of the Rogue App record based on the Rogue App ID and the status to update.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "message": ""
-      },
-      "parameters": [
-        {
-          "name": "rogue_app_exposure_id",
-          "title": "Rogue App ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "description": "Specify the ID of the rogue app whose status to update on Fortinet FortiRecon Brand Protection.",
-          "tooltip": "Specify the ID of the rogue app whose status to update on Fortinet FortiRecon Brand Protection."
-        },
-        {
-          "title": "Status",
-          "name": "status",
-          "type": "select",
-          "visible": true,
-          "editable": true,
-          "required": true,
-          "tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Unofficial Resolved False Positive Official Rogue Takedown",
-          "description": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Unofficial Resolved False Positive Official Rogue Takedown",
-          "options": [
-            "UNOFFICIAL",
-            "RESOLVED",
-            "FALSE_POSITIVE",
-            "OFFICIAL",
-            "ROGUE",
-            "TAKEDOWN"
-          ]
-        }
-      ]
-    },
-    {
-      "operation": "update_social_media_threat_status",
-      "title": "Update Social Media Threat Status",
-      "annotation": "update_social_media_threat_status",
-      "description": "Updates the status of the Social Media Threat record based on the Social Media Threat ID and the status to update.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "output_schema": {
-        "message": ""
-      },
-      "parameters": [
-        {
-          "name": "social_media_threat_id",
-          "title": "Social Media Threat ID",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "description": "Specify the threat ID of the social media whose status to update on Fortinet FortiRecon Brand Protection.",
-          "tooltip": "Specify the threat ID of the social media whose status to update on Fortinet FortiRecon Brand Protection."
-        },
-        {
-          "title": "Status",
-          "name": "status",
-          "type": "select",
-          "visible": true,
-          "editable": true,
-          "required": true,
-          "tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active False Positive Takedown",
-          "description": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active False Positive Takedown",
-          "options": [
-            "ACTIVE",
-            "FALSE_POSITIVE",
-            "TAKEDOWN"
-          ]
-        }
-      ]
-    },
-    {
-      "operation": "create_task",
-      "title": "Create Task",
-      "annotation": "create_task",
-      "description": "Create task",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": false,
-      "enabled": true,
-      "output_schema": {
-        "id": "",
-        "message": ""
-      },
-      "parameters": [
-        {
-          "title": "Requester",
-          "name": "requester",
-          "type": "text",
-          "visible": false,
-          "editable": true,
-          "required": false,
-          "placeholder": "",
-          "tooltip": "Requestor actor user",
-          "description": "Requestor actor."
-        },
-        {
-          "title": "Request",
-          "name": "request",
-          "type": "text",
-          "visible": false,
-          "editable": true,
-          "required": false,
-          "placeholder": "",
-          "tooltip": "Request message.",
-          "description": "Request message."
-        },
-        {
-          "title": "Task ID",
-          "name": "taskId",
-          "type": "text",
-          "visible": false,
-          "editable": true,
-          "required": false,
-          "placeholder": "",
-          "tooltip": "Task ID",
-          "description": "Task ID."
-        }
-      ]
-    },
-    {
-      "operation": "update_task",
-      "title": "Update task",
-      "annotation": "update_task",
-      "description": "Update task",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": false,
-      "enabled": true,
-      "output_schema": {
-        "status": ""
-      },
-      "parameters": [
-        {
-          "name": "task_id",
-          "title": "Task ID",
-          "type": "text",
-          "editable": true,
-          "visible": false,
-          "required": true,
-          "description": "Specify the task ID to update the status.",
-          "tooltip": "Specify the task ID to update the status."
-        },
-        {
-          "title": "Status",
-          "name": "status",
-          "type": "select",
-          "visible": false,
-          "editable": true,
-          "required": true,
-          "tooltip": "Specify the status to update the Task.",
-          "description": "Specify the status to update the task. You can choose from pending, failed, completed.",
-          "options": [
-            "completed",
-            "pending",
-            "failed"
-          ]
-        }
-      ]
-    }
-  ]
+	"name": "fortinet-fortirecon-brand-protection_dev",
+	"version": "2.2.0",
+	"label": "Fortinet FortiRecon Brand Protection",
+	"description": "FortiRecon is a Digital Risk Protection Service (DRPS) product that provides an outside-the-network view to the risks posed to your enterprise.",
+	"publisher": "",
+	"icon_small_name": "small_icon.png",
+	"icon_large_name": "large_icon.png",
+	"category": [
+		"Attack Surface Management"
+	],
+	"configuration": {
+		"fields": [
+			{
+				"title": "Server URL",
+				"type": "text",
+				"name": "server_url",
+				"required": true,
+				"visible": true,
+				"editable": true,
+				"value": "https://api.fortirecon.forticloud.com"
+			},
+			{
+				"title": "API Key",
+				"type": "password",
+				"name": "api_key",
+				"required": true,
+				"visible": true,
+				"editable": true,
+				"value": ""
+			},
+			{
+				"title": "Organization ID",
+				"type": "text",
+				"name": "org_id",
+				"required": true,
+				"visible": true,
+				"editable": true
+			},
+			{
+				"title": "Verify SSL",
+				"type": "checkbox",
+				"name": "verify_ssl",
+				"required": true,
+				"visible": true,
+				"editable": true,
+				"value": true
+			}
+		]
+	},
+	"operations": [
+		{
+			"operation": "get_code_repo_exposures",
+			"title": "Get Code Repo Exposures",
+			"annotation": "get_code_repo_exposures",
+			"description": "Retrieves a list of code repo exposures based on the filter criteria that you have specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Search By Keyword",
+					"type": "text",
+					"name": "q",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a keyword to search in code repositories and retrieve results containing the specified keyword."
+				},
+				{
+					"title": "Matched Domain",
+					"type": "text",
+					"name": "matched_domain",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a domain to search in code repositories and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve code repo exposures containing the specified domains. For example: domain1.com,domain2.com."
+				},
+				{
+					"title": "Risk Level",
+					"type": "text",
+					"name": "risk_level",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a risk level to search in code repositories and retrieve results containing the specified risk level. You can specify multiple comma-separated risk levels to retrieve code repositories containing the specified risk levels. For example: LOW,MEDIUM,HIGH."
+				},
+				{
+					"title": "Attribute Type",
+					"type": "text",
+					"name": "attribute_type",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify an attribute type to search in code repositories and retrieve results containing the specified attribute type. You can specify multiple comma-separated attribute types to retrieve code repositories containing the specified attribute types. For example: Email,Password."
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select a status to search in code repositories and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
+					"options": [
+						"Active",
+						"Ignored",
+						"Resolved"
+					]
+				},
+				{
+					"title": "Start Date",
+					"type": "datetime",
+					"name": "start_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
+				},
+				{
+					"title": "End Date",
+					"type": "datetime",
+					"name": "end_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"added_ts": "",
+						"attribute": "",
+						"attribute_type": "",
+						"id": "",
+						"matched_domain": "",
+						"raw_info": "",
+						"risk_level": "",
+						"status": "",
+						"url": "",
+						"repo_id": ""
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_code_repos",
+			"title": "Get Code Repositories",
+			"annotation": "get_code_repos",
+			"description": "Retrieves a list of code repositories based on the searched keyword, domain, risk level, and other filter criteria that you have specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Search By Keyword",
+					"type": "text",
+					"name": "q",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a keyword to search in code repositories and retrieve results containing the specified keyword."
+				},
+				{
+					"title": "Matched Domain",
+					"type": "text",
+					"name": "matched_domain",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a domain to search in code repositories and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve code repo exposures containing the specified domains. For example: domain1.com,domain2.com."
+				},
+				{
+					"title": "Risk Level",
+					"type": "text",
+					"name": "risk_level",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a risk level to search in code repositories and retrieve results containing the specified risk level. You can specify multiple comma-separated risk levels to retrieve code repositories containing the specified risk levels. For example: LOW,MEDIUM,HIGH."
+				},
+				{
+					"title": "Attribute Type",
+					"type": "text",
+					"name": "attribute_type",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify an attribute type to search in code repositories and retrieve results containing the specified attribute type. You can specify multiple comma-separated attribute types to retrieve code repositories containing the specified attribute types. For example: Email,Password."
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select a status to search in code repositories and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
+					"options": [
+						"Active",
+						"Ignored",
+						"Resolved"
+					]
+				},
+				{
+					"title": "Start Date",
+					"type": "datetime",
+					"name": "start_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
+				},
+				{
+					"title": "End Date",
+					"type": "datetime",
+					"name": "end_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"id": "",
+						"repo_url": "",
+						"files_count": "",
+						"risk_level": "",
+						"attribute": "",
+						"matched_domain": "",
+						"attribute_type": "",
+						"added_ts": "",
+						"status": ""
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_code_repos_stats",
+			"title": "Get Code Repos Statistics",
+			"annotation": "get_code_repos_stats",
+			"description": "Retrieves statistics for all code repositories associated with the Organization ID specified in configuration parameters.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [],
+			"output_schema": {
+				"count_by_action": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_attribute_type": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						},
+						{
+							"count": "",
+							"id": ""
+						},
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_risk_level": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						},
+						{
+							"count": "",
+							"id": ""
+						},
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				}
+			},
+			"open": false
+		},
+		{
+			"operation": "get_code_repo_matched_domains_stats",
+			"title": "Get Code Repo Matched Domains Statistics",
+			"annotation": "get_code_repo_matched_domains_stats",
+			"description": "Retrieves statistics of all matched domains associated with the Organization ID specified in configuration parameters.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [],
+			"output_schema": {
+				"count_by_matched_domain": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				}
+			},
+			"open": false
+		},
+		{
+			"operation": "get_domain_threats",
+			"title": "Get Domain Threats",
+			"annotation": "get_domain_threats",
+			"description": "Retrieves list of code domain threats based on the filter criteria that you have specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Search By Keyword",
+					"type": "text",
+					"name": "q",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a keyword to search in domain threats and retrieve results containing the specified keyword. The keyword is searched in domain, URL, severity, original domain, online status, and fuzzer fields."
+				},
+				{
+					"title": "Original Domain",
+					"type": "text",
+					"name": "original_domain",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a domain to search in domain threats and retrieve results containing the specified domain name. You can specify multiple comma-separated domains to retrieve domain threats containing the specified domains. For example: domain1.com,domain2.com."
+				},
+				{
+					"title": "Tags",
+					"type": "text",
+					"name": "tags",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a tag to search in domain threats and retrieve results containing the specified tags. You can specify multiple tags to retrieve domain threats containing the specified tags. For example: b7c4409f4e34eedc7a5447b077732c66,b7c4409f4e34eedc7a5447b077732c77. NOTE: Tag ID can be retrieved from the Get Tags action."
+				},
+				{
+					"title": "Online Status",
+					"type": "select",
+					"name": "online_status",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select an online status search in domain threats and retrieve results containing the specified online status. You can select one of the following options: Online Not Available Non Functional Offline",
+					"options": [
+						"Online",
+						"Not Available",
+						"Non Functional",
+						"Offline"
+					]
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select a status to search in domain threats and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
+					"options": [
+						"Active",
+						"Ignored",
+						"Resolved"
+					]
+				},
+				{
+					"title": "Start Date",
+					"type": "datetime",
+					"name": "start_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
+				},
+				{
+					"title": "End Date",
+					"type": "datetime",
+					"name": "end_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"added_ts": "",
+						"domain": "",
+						"expiration_date": "",
+						"fuzzer": "",
+						"id": "",
+						"is_false_positive": "",
+						"is_impersonation": "",
+						"is_parked": "",
+						"online_status": "",
+						"original_domain": "",
+						"registration_date": "",
+						"severity": "",
+						"source": "",
+						"source_name": "",
+						"status": "",
+						"tags": []
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_domain_threats_by_id",
+			"title": "Get Domain Threats By ID",
+			"annotation": "get_domain_threats_by_id",
+			"description": "Retrieves details of threats on a domain based on the threat ID that you have specified.",
+			"category": "investigation",
+			"is_config_required": true,
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Domain Threat ID",
+					"type": "text",
+					"name": "id",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify an ID of the domain threat to retrieve its details."
+				}
+			],
+			"output_schema": {
+				"added_ts": "",
+				"domain": "",
+				"id": "",
+				"notable_change_ts": "",
+				"ticket_id": "",
+				"is_false_positive": "",
+				"is_impersonation": "",
+				"is_parked": "",
+				"online_status": "",
+				"original_domain": "",
+				"severity": "",
+				"source": "",
+				"source_name": "",
+				"status": "",
+				"tags": [
+					{
+						"id": "",
+						"name": ""
+					}
+				]
+			},
+			"open": false
+		},
+		{
+			"operation": "get_executive_exposures",
+			"title": "Get Executive Exposures",
+			"annotation": "get_executive_exposures",
+			"description": "Retrieves list of executive exposures based on the filter criteria that you have specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Source Type",
+					"type": "text",
+					"name": "source_type",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a source type in which to search and retrieve results containing the specified Executive ID."
+				},
+				{
+					"title": "Executive ID",
+					"type": "text",
+					"name": "executive_id",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify an executive ID to search and retrieve results containing the specified executive ID."
+				},
+				{
+					"title": "Start Date",
+					"type": "datetime",
+					"name": "start_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the start date of the range containing the date when a report was added. Selecting a start date is mandatory if an End Date is selected."
+				},
+				{
+					"title": "End Date",
+					"type": "datetime",
+					"name": "end_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the end date of the range containing the date when a report was added. Default is the current date."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"added_ts": "",
+						"data": {},
+						"executive_id": "",
+						"id": "",
+						"matched_keywords": [
+							{
+								"type": "",
+								"value": ""
+							}
+						],
+						"source_type": ""
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_executive_profiles",
+			"title": "Get Executive Profiles",
+			"annotation": "get_executive_profiles",
+			"description": "Retrieves list of executive profiles based on the name of the executive, page number, and page size that you have specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Executive Name",
+					"type": "text",
+					"name": "name",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify an executive name to search and retrieve results containing the specified executive's name."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"id": "",
+						"name": ""
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_open_bucket_exposures",
+			"title": "Get Open Bucket Exposures",
+			"annotation": "get_open_bucket_exposures",
+			"description": "Retrieves list of open bucket exposures based on the filter criteria that you have specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Search By Keyword",
+					"type": "text",
+					"name": "q",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a keyword to search in open bucket exposures and retrieve results containing the specified keyword."
+				},
+				{
+					"title": "File Type",
+					"type": "text",
+					"name": "file_type",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a file type to search in open bucket exposures and retrieve results containing the specified file types. You can specify multiple comma-separated file types to retrieve open bucket exposures containing the specified file types. For example gz,tgz,docx."
+				},
+				{
+					"title": "Bucket Type",
+					"type": "text",
+					"name": "bucket_type",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a bucket type to search in open bucket exposures and retrieve results containing the specified bucket types. You can specify multiple comma-separated bucket types to retrieve open bucket exposures containing the specified bucket types. For example gcp,aws,azure."
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select a status to search in open bucket exposures and retrieve results containing the specified status. You can select from the following options: Active Ignored Resolved",
+					"options": [
+						"Active",
+						"Ignored",
+						"Resolved"
+					]
+				},
+				{
+					"title": "Start Date",
+					"type": "datetime",
+					"name": "start_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
+				},
+				{
+					"title": "End Date",
+					"type": "datetime",
+					"name": "end_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"accessibility_status": "",
+						"added_ts": "",
+						"bucket": "",
+						"bucket_id": "",
+						"bucket_type": "",
+						"file_name": "",
+						"file_size": "",
+						"file_type": "",
+						"full_path": "",
+						"id": "",
+						"source_id": "",
+						"status": "",
+						"url": ""
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_rogue_apps",
+			"title": "Get Rogue Apps",
+			"annotation": "get_rogue_apps",
+			"description": "Retrieves a list of Rogue Apps based on the status and keywords that you have specified for the query; rogue apps are mobile applications trying to look like apps from trusted brands.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Status",
+					"type": "multiselect",
+					"name": "status",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the rogue apps status type from the following options to filter the results: Unofficial: These are the apps that are not necessarily rouge but mention your organization's brand Official: These are the apps that are officially published by your organization Rogue: These are the apps that are deemed to be impersonating your organization Takedown: These are the rouge apps that are currently undergoing takedown by FortiRecon False Positive: These are the apps that were classified as either rouge or unofficial but are now deemed to be false positives by your organization's analysts Resolved: These are the rouge apps that have been taken down."
+				},
+				{
+					"title": "Search By Keyword",
+					"type": "text",
+					"name": "q",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the keywords to filter the results. Specified keyword is searched in these fields: Keyword, Source Name, Developer Name, App Name."
+				},
+				{
+					"title": "App Store Name",
+					"type": "text",
+					"name": "appstore",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify an app store in which to search for rogue apps and retrieve results. You can specify multiple comma-separated file types to retrieve rogue apps containing the specified file types. For example: Androidapk,Applestore."
+				},
+				{
+					"title": "Start Date",
+					"type": "datetime",
+					"name": "start_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the start date of the range containing the date when the rogue app was first seen. Selecting a start date is mandatory if an End Date is selected."
+				},
+				{
+					"title": "End Date",
+					"type": "datetime",
+					"name": "end_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the end date of the range containing the date when a rogue app was first seen. Default is the current date."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"added_ts": "",
+						"app_name": "",
+						"app_size": "",
+						"appstore": "",
+						"description": "",
+						"developer_name": "",
+						"download_count": "",
+						"download_url": "",
+						"first_seen": "",
+						"id": "",
+						"keyword": "",
+						"package_name": "",
+						"status": "",
+						"ticket_id": "",
+						"updated_ts": ""
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_rogue_app_by_id",
+			"title": "Get Rogue App By ID",
+			"annotation": "get_rogue_app_by_id",
+			"description": "Retrieves details of a rogue app based on the Rogue App ID that you have specified.",
+			"category": "investigation",
+			"is_config_required": true,
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Rogue App ID",
+					"type": "text",
+					"name": "id",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the ID of the rogue app to get its details."
+				}
+			],
+			"output_schema": {
+				"app_name": "",
+				"app_size": "",
+				"appstore": "",
+				"description": "",
+				"developer_name": "",
+				"developer_url": "",
+				"download_count": "",
+				"download_url": "",
+				"first_seen": "",
+				"id": "",
+				"is_whitelisted": "",
+				"keyword": "",
+				"last_seen": "",
+				"listing_url": "",
+				"package_name": "",
+				"review_count": "",
+				"review_stars": "",
+				"screenshot_url": "",
+				"status": "",
+				"ticket_id": "",
+				"updated_ts": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_social_media_threats",
+			"title": "Get Social Media Threats",
+			"annotation": "get_social_media_threats",
+			"description": "Retrieves list of social media threats based on the filter criteria that you have specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Search By Keyword",
+					"type": "text",
+					"name": "q",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a keyword to search in social media threats and retrieve results containing the specified keyword in profile name or handle name fields."
+				},
+				{
+					"title": "Media Type",
+					"type": "text",
+					"name": "media_type",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a social media platform to search in social media threats and retrieve results containing the specified social media platforms. You can specify multiple comma-separated social media platforms to retrieve social media threats containing the specified social media platforms. For example FACEBOOK,INSTAGRAM,TWITTER."
+				},
+				{
+					"title": "Profile Name",
+					"type": "text",
+					"name": "profile_name",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a profile name to search and retrieve social media threats containing the specified profile name."
+				},
+				{
+					"title": "Handle Name",
+					"type": "text",
+					"name": "handle_name",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a handle name to search and retrieve social media threats containing the specified handle name."
+				},
+				{
+					"title": "Is Verified",
+					"type": "select",
+					"name": "is_verified",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select whether the profile or the handle name is verified to retrieve social media threats containing only verified profile or handle name. You can select one of the following options: True False",
+					"options": [
+						"True",
+						"False"
+					]
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select a status to search in social media threats and retrieve results containing the specified status. You can select from the following options: Active False Positive Takedown Resolved",
+					"options": [
+						"Active",
+						"False Positive",
+						"Takedown",
+						"Resolved"
+					]
+				},
+				{
+					"title": "Start Date",
+					"type": "datetime",
+					"name": "start_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the start date of the range containing the date when a profile was added. Selecting a start date is mandatory if an End Date is selected."
+				},
+				{
+					"title": "End Date",
+					"type": "datetime",
+					"name": "end_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the end date of the range containing the date when a profile was added. Default is the current date."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"added_ts": "",
+						"followers_count": "",
+						"friends_count": "",
+						"handle_name": "",
+						"id": "",
+						"is_verified": "",
+						"location": "",
+						"media_type": "",
+						"posts_count": "",
+						"profile_creation_ts": "",
+						"profile_name": "",
+						"profile_url": "",
+						"source_id": "",
+						"status": "",
+						"ticket_id": ""
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "get_domain_threats_stats",
+			"title": "Get Domain Threats Statistics",
+			"annotation": "get_domain_threats_stats",
+			"description": "Retrieves statistics for domain threats.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [],
+			"output_schema": {
+				"count_by_action": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_domain_status": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_tags": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				}
+			},
+			"open": false
+		},
+		{
+			"operation": "get_original_domains_stats",
+			"title": "Get Original Domains Statistics",
+			"annotation": "get_original_domains_stats",
+			"description": "Retrieves the statistics of original domains threats based on the page number and the page size specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [],
+			"output_schema": {
+				"count_by_original_domain": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				}
+			},
+			"open": false
+		},
+		{
+			"operation": "get_open_bucket_exposures_stats",
+			"title": "Get Open Bucket Exposures Statistics",
+			"annotation": "get_open_bucket_exposures_stats",
+			"description": "Retrieves the statistics of open bucket exposures.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [],
+			"output_schema": {
+				"count_by_accessibility_status": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_bucket_type": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_file_type": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_status": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				}
+			},
+			"open": false
+		},
+		{
+			"operation": "get_social_media_threats_stats",
+			"title": "Get Social Media Threats Statistics",
+			"annotation": "get_social_media_threats_stats",
+			"description": "Retrieves the statistics of social media threats.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [],
+			"output_schema": {
+				"count_by_is_verified": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_media_type": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				},
+				"count_by_status": {
+					"aggregations": [
+						{
+							"count": "",
+							"id": ""
+						}
+					],
+					"total": ""
+				}
+			},
+			"open": false
+		},
+		{
+			"operation": "get_tags",
+			"title": "Get Tags",
+			"annotation": "get_tags",
+			"description": "Retrieves the list of active tags.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [],
+			"output_schema": {
+				"hits": [
+					{
+						"id": "",
+						"name": ""
+					}
+				]
+			},
+			"open": false
+		},
+		{
+			"operation": "get_takedown_requests",
+			"title": "Get Takedown Requests",
+			"annotation": "get_takedown_requests",
+			"description": "Retrieves a list of takedown requests for rogue apps and typo domains for the given organization the filter criteria that you have specified.",
+			"category": "investigation",
+			"visible": true,
+			"enabled": true,
+			"parameters": [
+				{
+					"title": "Search By Keyword",
+					"type": "text",
+					"name": "q",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify a keyword to search in take-down requests and retrieve results containing the specified keyword in ticket Id or entity fields. The entity field may contain domain name, title of a report, or Phished Domain."
+				},
+				{
+					"title": "Status",
+					"type": "multiselect",
+					"name": "status",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select a status to search in take-down requests and retrieve results containing the specified status. You can select from the following options: Requested Acknowledged Rejected Approved Initiated Successfully Closed Unsuccessfully Closed"
+				},
+				{
+					"title": "Category",
+					"type": "multiselect",
+					"name": "category",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select a category to search in take-down requests and retrieve results containing the specified category. you can select from the following options: DomainThreat RogueApps SocialMediaThreat"
+				},
+				{
+					"title": "Start Date",
+					"type": "datetime",
+					"name": "start_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the start date of the range containing the date when the takedown was requested. Selecting a start date is mandatory if an End Date is selected."
+				},
+				{
+					"title": "End Date",
+					"type": "datetime",
+					"name": "end_date",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Select the end date of the range containing the date when the takedown was requested. Default is the current date."
+				},
+				{
+					"title": "Page",
+					"type": "integer",
+					"name": "page",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the page number from which to retrieve the results. Default value is 1."
+				},
+				{
+					"title": "Size",
+					"type": "integer",
+					"name": "size",
+					"required": false,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+				}
+			],
+			"output_schema": {
+				"hits": [
+					{
+						"added_ts": "",
+						"category": "",
+						"entity": "",
+						"id": "",
+						"resource_id": "",
+						"status": "",
+						"ticket_id": ""
+					}
+				],
+				"page": "",
+				"size": "",
+				"total": ""
+			},
+			"open": false
+		},
+		{
+			"operation": "update_code_repo_status",
+			"title": "Update Code Repo Status",
+			"annotation": "update_code_repo_status",
+			"description": "Updates the status of the Code Repo based on the code repo ID and the status to update.",
+			"category": "investigation",
+			"is_config_required": true,
+			"visible": true,
+			"enabled": true,
+			"output_schema": {
+				"message": ""
+			},
+			"parameters": [
+				{
+					"title": "Code Repo ID",
+					"type": "text",
+					"name": "repo_id",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the ID of the code repo whose status to update on Fortinet FortiRecon Brand Protection."
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved Ignored",
+					"options": [
+						"ACTIVE",
+						"RESOLVED",
+						"IGNORED"
+					]
+				}
+			],
+			"open": false
+		},
+		{
+			"operation": "update_domain_threat_status",
+			"title": "Update Domain Threat Status",
+			"annotation": "update_domain_threat_status",
+			"description": "Updates the status of the Domain Threat record based on the Domain Threat ID and the status to update.",
+			"category": "investigation",
+			"is_config_required": true,
+			"visible": true,
+			"enabled": true,
+			"output_schema": {
+				"message": ""
+			},
+			"parameters": [
+				{
+					"title": "Domain Threat ID",
+					"type": "text",
+					"name": "domain_threat_id",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the threat ID of the domain whose status to update on Fortinet FortiRecon Brand Protection."
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved False Positive Takedown Safelist",
+					"options": [
+						"ACTIVE",
+						"RESOLVED",
+						"FALSE_POSITIVE",
+						"TAKEDOWN",
+						"SAFELIST"
+					]
+				}
+			],
+			"open": false
+		},
+		{
+			"operation": "update_open_bucket_exposure_status",
+			"title": "Update Open Bucket Exposure Status",
+			"annotation": "update_open_bucket_exposure_status",
+			"description": "Updates the status of the Open Bucket Exposure record based on the Open Bucket Exposure ID and the status to update.",
+			"category": "investigation",
+			"is_config_required": true,
+			"visible": true,
+			"enabled": true,
+			"output_schema": {
+				"message": ""
+			},
+			"parameters": [
+				{
+					"title": "Open Bucket Exposure ID",
+					"type": "text",
+					"name": "open_bucket_exposure_id",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the exposure ID of the open bucket whose status to update on Fortinet FortiRecon Brand Protection."
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active Resolved Ignored",
+					"options": [
+						"ACTIVE",
+						"RESOLVED",
+						"IGNORED"
+					]
+				}
+			],
+			"open": false
+		},
+		{
+			"operation": "update_rogue_app_exposure_status",
+			"title": "Update Rogue App Status",
+			"annotation": "update_rogue_app_exposure_status",
+			"description": "Updates the status of the Rogue App record based on the Rogue App ID and the status to update.",
+			"category": "investigation",
+			"is_config_required": true,
+			"visible": true,
+			"enabled": true,
+			"output_schema": {
+				"message": ""
+			},
+			"parameters": [
+				{
+					"title": "Rogue App ID",
+					"type": "text",
+					"name": "rogue_app_exposure_id",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the ID of the rogue app whose status to update on Fortinet FortiRecon Brand Protection."
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Unofficial Resolved False Positive Official Rogue Takedown",
+					"options": [
+						"UNOFFICIAL",
+						"RESOLVED",
+						"FALSE_POSITIVE",
+						"OFFICIAL",
+						"ROGUE",
+						"TAKEDOWN"
+					]
+				}
+			],
+			"open": false
+		},
+		{
+			"operation": "update_social_media_threat_status",
+			"title": "Update Social Media Threat Status",
+			"annotation": "update_social_media_threat_status",
+			"description": "Updates the status of the Social Media Threat record based on the Social Media Threat ID and the status to update.",
+			"category": "investigation",
+			"is_config_required": true,
+			"visible": true,
+			"enabled": true,
+			"output_schema": {
+				"message": ""
+			},
+			"parameters": [
+				{
+					"title": "Social Media Threat ID",
+					"type": "text",
+					"name": "social_media_threat_id",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the threat ID of the social media whose status to update on Fortinet FortiRecon Brand Protection."
+				},
+				{
+					"title": "Status",
+					"type": "select",
+					"name": "status",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"tooltip": "Specify the status to update on Fortinet FortiRecon Brand Protection. You can choose from the following options: Active False Positive Takedown",
+					"options": [
+						"ACTIVE",
+						"FALSE_POSITIVE",
+						"TAKEDOWN"
+					]
+				}
+			],
+			"open": false
+		},
+		{
+			"title": "Create Takedown Request",
+			"operation": "create_takedown_request",
+			"description": "Creates the takedown requests for rogue apps, typo domains for the specified organisation.",
+			"parameters": [
+				{
+					"title": "Category",
+					"type": "select",
+					"name": "category",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"value": null,
+					"options": [
+						"Doman Threat",
+						"Rogue Apps",
+						"Social Media Threat"
+					]
+				},
+				{
+					"title": "Entity",
+					"type": "text",
+					"name": "entity",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"value": ""
+				},
+				{
+					"title": "Resource ID",
+					"type": "text",
+					"name": "resourceID",
+					"required": true,
+					"visible": true,
+					"editable": true,
+					"value": ""
+				}
+			],
+			"open": false,
+			"category": "remediation"
+		}
+	],
+	"contributor": "Ramkrushna Pathade, Reem Moustafa",
+	"cs_compatible": true,
+	"help_online": "https://docs.fortinet.com/document/fortisoar/2.1.0/fortinet-fortirecon-brand-protection/1018/fortinet-fortirecon-brand-protection-v2-1-0"
 }
