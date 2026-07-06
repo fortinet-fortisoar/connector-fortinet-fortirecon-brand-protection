@@ -1,6 +1,6 @@
 #### Descriptions:
-_Add PR descriptions here_
+FortiRecon BP Connector was pulled in order to add the "Create Takedown Request" action to be taken via API.
 
 #### Fix:
-_Add fix/changes here_
+Added the "Create Takedown Request" Action
 

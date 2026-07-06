@@ -22,21 +22,21 @@ class MakeRestApiCall:
         self.authkey = config.get("api_key", '')
         self.verify_ssl = config.get("verify_ssl", True)
 
-    def make_request(self, method='GET', endpoint='', params=None, data=None, json_data={}):
+    def make_request(self, method='GET', endpoint='', params=None, data=None):
         try:
             url = self.server_url + f"/bp/{self.org_id}" + endpoint
-            if "security-orchestration" in url:
-                url = '{0}{1}'.format(self.server_url, endpoint.format(org_id=self.org_id))
             headers = {"Content-Type": "application/json",
                        "Authorization": self.authkey}
-            logger.debug(f"\n-----------req_start-----------\n{method} - {url}\nparams: {params}\ndata: {data}\n")
+            logger.debug(
+                f"\n-----------req_start-----------\n{method} - {url}\nparams: {params}\ndata: {data}\n")
             try:
                 from connectors.debug_utils.curl_script import make_curl
-                make_curl(method, url, headers=headers, params=params, json=data, verify_ssl=self.verify_ssl)
+                make_curl(method, url, headers=headers, params=params,
+                          json=data, verify_ssl=self.verify_ssl)
             except Exception as err:
                 logger.info(f"Error in curl utils: {str(err)}")
             response = requests.request(method=method, url=url,
-                                        headers=headers, json=json_data, params=params, data=data,
+                                        headers=headers, json=data, params=params,
                                         verify=self.verify_ssl)
 
             if response.ok:
@@ -46,7 +46,8 @@ class MakeRestApiCall:
                     return response.text
             else:
                 logger.error("Error: {0}".format(response.json()))
-                raise ConnectorError('{0}:{1}'.format(response.status_code, response.text))
+                raise ConnectorError('{0}:{1}'.format(
+                    response.status_code, response.text))
         except requests.exceptions.SSLError as e:
             logger.exception('{0}'.format(e))
             raise ConnectorError('{0}'.format(e))
@@ -63,7 +64,8 @@ def build_params(params={}, multiselect=[]):
     for key, value in params.items():
         if value is False or value == 0 or value:
             if key in ("start_date", "end_date"):
-                value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
+                value = datetime.strptime(
+                    value, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
             elif key in multiselect:
                 value = ",".join(value)
             elif key in ("status", "online_status") and isinstance(value, str):
@@ -174,12 +176,15 @@ def get_takedown_requests(config, params):
     return ob.make_request(method="GET", endpoint="/takedowns", params=new_params)
 
 # Update status
+
+
 def update_code_repo_status(config, params):
     status = params.pop("status")
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
     endpoint = "/code_repos/{0}".format(params.pop("repo_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    response = MK.make_request(
+        endpoint=endpoint, method="PATCH", params=params, data=payload)
     return response
 
 
@@ -188,7 +193,8 @@ def update_domain_threat_status(config, params):
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
     endpoint = "/domain_threats/{0}".format(params.pop("domain_threat_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    response = MK.make_request(
+        endpoint=endpoint, method="PATCH", params=params, data=payload)
     return response
 
 
@@ -196,8 +202,10 @@ def update_open_bucket_exposure_status(config, params):
     status = params.pop("status")
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
-    endpoint = "/open_bucket_exposures/{0}".format(params.pop("open_bucket_exposure_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    endpoint = "/open_bucket_exposures/{0}".format(
+        params.pop("open_bucket_exposure_id"))
+    response = MK.make_request(
+        endpoint=endpoint, method="PATCH", params=params, data=payload)
     return response
 
 
@@ -206,7 +214,8 @@ def update_rogue_app_exposure_status(config, params):
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
     endpoint = "/rogue_apps/{0}".format(params.pop("rogue_app_exposure_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    response = MK.make_request(
+        endpoint=endpoint, method="PATCH", params=params, data=payload)
     return response
 
 
@@ -214,20 +223,28 @@ def update_social_media_threat_status(config, params):
     status = params.pop("status")
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
-    endpoint = "/social_media_threats/{0}".format(params.pop("social_media_threat_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    endpoint = "/social_media_threats/{0}".format(
+        params.pop("social_media_threat_id"))
+    response = MK.make_request(
+        endpoint=endpoint, method="PATCH", params=params, data=payload)
     return response
 
-def create_task(config, params):
-    MK = MakeRestApiCall(config=config)
-    endpoint = "/security-orchestration/{org_id}/tasks"
-    response = MK.make_request(endpoint=endpoint, method="POST", json_data=params)
-    return response
 
-def update_task(config, params):
+def create_takedown_request(config, params):
     MK = MakeRestApiCall(config=config)
-    endpoint = "/security-orchestration/{org_id}"+"/tasks/{0}".format(params.pop("task_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", json_data=params)
+
+    category = params.get("category")
+    entity = params.get("entity")
+    resource_id = params.get("resourceID")
+
+    payload = {
+        "category": category.replace(" ", ""),
+        "entity": entity,
+        "resource_id": resource_id
+    }
+
+    endpoint = "/takedowns"
+    response = MK.make_request(endpoint=endpoint, method="POST", data=payload)
     return response
 
 def _check_health(config):
@@ -236,6 +253,7 @@ def _check_health(config):
         return True
     except Exception as e:
         raise Exception(str(e))
+
 
 operations = {
     "get_code_repos": get_code_repos,
@@ -261,6 +279,5 @@ operations = {
     "update_open_bucket_exposure_status": update_open_bucket_exposure_status,
     "update_rogue_app_exposure_status": update_rogue_app_exposure_status,
     "update_social_media_threat_status": update_social_media_threat_status,
-    "create_task": create_task,
-    "update_task": update_task
+    "create_takedown_request": create_takedown_request
 }
