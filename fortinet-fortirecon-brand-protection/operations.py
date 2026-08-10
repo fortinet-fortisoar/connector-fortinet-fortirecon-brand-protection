@@ -188,7 +188,7 @@ def update_domain_threat_status(config, params):
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
     endpoint = "/domain_threats/{0}".format(params.pop("domain_threat_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, json_data=payload)
     return response
 
 
@@ -197,7 +197,7 @@ def update_open_bucket_exposure_status(config, params):
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
     endpoint = "/open_bucket_exposures/{0}".format(params.pop("open_bucket_exposure_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, json_data=payload)
     return response
 
 
@@ -217,6 +217,16 @@ def update_social_media_threat_status(config, params):
     endpoint = "/social_media_threats/{0}".format(params.pop("social_media_threat_id"))
     response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
     return response
+
+def get_resource_comments(config, params):
+    request = MakeRestApiCall(config=config)
+    resource_id = params.pop("resource_id")
+    return request.make_request(method="GET", endpoint=f"/resource_comments/{resource_id}", params=params)
+
+def add_resource_comment(config, payload):
+    request = MakeRestApiCall(config=config)
+    return request.make_request(method="POST", endpoint=f"/resource_comments", json_data=payload)
+
 
 def create_task(config, params):
     MK = MakeRestApiCall(config=config)
@@ -262,5 +272,7 @@ operations = {
     "update_rogue_app_exposure_status": update_rogue_app_exposure_status,
     "update_social_media_threat_status": update_social_media_threat_status,
     "create_task": create_task,
-    "update_task": update_task
+    "update_task": update_task,
+    "get_resource_comments": get_resource_comments,
+    "add_resource_comment": add_resource_comment
 }
