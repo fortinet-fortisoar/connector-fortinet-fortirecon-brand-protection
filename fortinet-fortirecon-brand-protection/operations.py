@@ -188,7 +188,7 @@ def update_domain_threat_status(config, params):
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
     endpoint = "/domain_threats/{0}".format(params.pop("domain_threat_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, json_data=payload)
     return response
 
 
@@ -197,7 +197,7 @@ def update_open_bucket_exposure_status(config, params):
     payload = {"status": status}
     MK = MakeRestApiCall(config=config)
     endpoint = "/open_bucket_exposures/{0}".format(params.pop("open_bucket_exposure_id"))
-    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
+    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, json_data=payload)
     return response
 
 
