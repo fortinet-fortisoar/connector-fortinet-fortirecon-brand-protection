@@ -1,5 +1,5 @@
 #### What's New
 
- - Added following new actions and their playbooks:
-   - Create tasks
-   - Update tasks
+ - Updated following actions:
+   - Update Domain Threat Status
+   - Update Open Bucket Exposure Status
