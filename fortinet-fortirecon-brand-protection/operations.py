@@ -1,7 +1,7 @@
 """
 Copyright start
 MIT License
-Copyright (c) 2024 Fortinet Inc
+Copyright (c) 2025 Fortinet Inc
 Copyright end
 """
 
@@ -22,9 +22,11 @@ class MakeRestApiCall:
         self.authkey = config.get("api_key", '')
         self.verify_ssl = config.get("verify_ssl", True)
 
-    def make_request(self, method='GET', endpoint='', params=None, data=None):
+    def make_request(self, method='GET', endpoint='', params=None, data=None, json_data={}):
         try:
             url = self.server_url + f"/bp/{self.org_id}" + endpoint
+            if "security-orchestration" in url:
+                url = '{0}{1}'.format(self.server_url, endpoint.format(org_id=self.org_id))
             headers = {"Content-Type": "application/json",
                        "Authorization": self.authkey}
             logger.debug(f"\n-----------req_start-----------\n{method} - {url}\nparams: {params}\ndata: {data}\n")
@@ -34,7 +36,7 @@ class MakeRestApiCall:
             except Exception as err:
                 logger.info(f"Error in curl utils: {str(err)}")
             response = requests.request(method=method, url=url,
-                                        headers=headers, json=data, params=params,
+                                        headers=headers, json=json_data, params=params, data=data,
                                         verify=self.verify_ssl)
 
             if response.ok:
@@ -216,6 +218,17 @@ def update_social_media_threat_status(config, params):
     response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, data=payload)
     return response
 
+def create_task(config, params):
+    MK = MakeRestApiCall(config=config)
+    endpoint = "/security-orchestration/{org_id}/tasks"
+    response = MK.make_request(endpoint=endpoint, method="POST", json_data=params)
+    return response
+
+def update_task(config, params):
+    MK = MakeRestApiCall(config=config)
+    endpoint = "/security-orchestration/{org_id}"+"/tasks/{0}".format(params.pop("task_id"))
+    response = MK.make_request(endpoint=endpoint, method="PATCH", json_data=params)
+    return response
 
 def _check_health(config):
     try:
@@ -223,7 +236,6 @@ def _check_health(config):
         return True
     except Exception as e:
         raise Exception(str(e))
-
 
 operations = {
     "get_code_repos": get_code_repos,
@@ -248,5 +260,7 @@ operations = {
     "update_domain_threat_status": update_domain_threat_status,
     "update_open_bucket_exposure_status": update_open_bucket_exposure_status,
     "update_rogue_app_exposure_status": update_rogue_app_exposure_status,
-    "update_social_media_threat_status": update_social_media_threat_status
+    "update_social_media_threat_status": update_social_media_threat_status,
+    "create_task": create_task,
+    "update_task": update_task
 }
